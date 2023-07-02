@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 const secrets = require('./secrets.json');
 
 let pages = new Array;
-const baseDir = './data/';
+const baseDir = '/volume1/Documents/Notion/';
 const notion = new Client({
   auth: secrets.notion.integration_secret,
 });
