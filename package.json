@@ -1,0 +1,24 @@
+{
+  "name": "notion-to-synology",
+  "version": "1.0.0",
+  "description": "A node script that backups Notion to Synology",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sammorrisdesign/notion-to-synology.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sammorrisdesign/notion-to-synology/issues"
+  },
+  "homepage": "https://github.com/sammorrisdesign/notion-to-synology#readme",
+  "dependencies": {
+    "@notionhq/client": "^2.2.6",
+    "fs-extra": "^11.1.1",
+    "notion-to-md": "^3.1.0"
+  }
+}
