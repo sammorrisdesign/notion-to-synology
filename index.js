@@ -4,7 +4,6 @@ const fs = require('fs-extra');
 const secrets = require('./secrets.json');
 
 let pages = new Array;
-const baseDir = '/volume1/Documents/Notion/';
 const notion = new Client({
   auth: secrets.notion.integration_secret,
 });
@@ -61,17 +60,19 @@ const getPathFromParent = async(id, path = '') => {
 
   // if we have a parentPage amend path name
   if (parentPage) {
+    console.log(parentPage.title);
     path = `${parentPage.title}/` + path;
+    console.log(path);
   }
 
   // if this has a parent page, recursively check it
   if (parentPage && parentPage.parent.page_id) {
-    await getPathFromParent(parentPage.parent.page_id, path);
-
-  // if not, we can stop and return the path we currently have
-  } else {
-    return path;
+    path = await getPathFromParent(parentPage.parent.page_id, path);
   }
+
+  // return the path when we're done recursively looping
+  return path;
+
 }
 
 const setPaths = async() => {
@@ -86,12 +87,12 @@ const setPaths = async() => {
 
 const saveFiles = async() => {
   // gut the folder
-  fs.emptyDirSync(baseDir);
+  fs.emptyDirSync(secrets.baseDir);
 
   // loop through all pages
   const keys = Object.keys(pages);
   for (let key of keys) {
-    const path = baseDir + pages[key].path;
+    const path = secrets.baseDir + pages[key].path;
 
     // create folder if it doesn't exist, made recursive in case Notion returns things in a weird order
     if (!fs.existsSync(path)) {
