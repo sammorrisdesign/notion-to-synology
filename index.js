@@ -60,9 +60,7 @@ const getPathFromParent = async(id, path = '') => {
 
   // if we have a parentPage amend path name
   if (parentPage) {
-    console.log(parentPage.title);
     path = `${parentPage.title}/` + path;
-    console.log(path);
   }
 
   // if this has a parent page, recursively check it
@@ -109,8 +107,15 @@ const saveFiles = async() => {
 }
 
 (async () => {
-  await getSearchResults();
-  await getPageContent();
-  await setPaths();
-  await saveFiles();
+  try {
+    await getSearchResults();
+    await getPageContent();
+    await setPaths();
+    await saveFiles();
+    console.log(`✅ Successfully backed up`);
+  } catch(e) {
+    console.log(`⛔️ An error occurred`);
+    console.log(e);
+  }
+
 })();
